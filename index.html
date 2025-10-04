@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutoCollège - Plateforme de Tutorat pour Collégiens</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a86e8;
+            --secondary: #ff6b6b;
+            --accent: #6b5ce7;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(120deg, var(--primary), var(--accent));
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--secondary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .auth-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .login {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .login:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .signup {
+            background: var(--secondary);
+            border: 2px solid var(--secondary);
+            color: white;
+        }
+        
+        .signup:hover {
+            background: transparent;
+            color: var(--secondary);
+        }
+        
+        /* Page Styles */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            min-height: 70vh;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 400"><rect fill="%234a86e8" width="800" height="400"/><path fill="%236b5ce7" fill-opacity="0.2" d="M0 192L26.7 202.7C53.3 213 107 235 160 234.7C213.3 235 267 213 320 197.3C373.3 181 427 171 480 186.7C533.3 203 587 245 640 250.7C693.3 256 747 224 773.3 208L800 192L800 401L773.3 401C746.7 401 693 401 640 401C586.7 401 533 401 480 401C426.7 401 373 401 320 401C266.7 401 213 401 160 401C106.7 401 53 401 27 401L0 401Z"></path></svg>') center/cover no-repeat;
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            box-shadow: 0 4px 15px rgba(74, 134, 232, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: #3a76e6;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+        }
+        
+        /* Subjects Section */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin: 40px 0;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .subject-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .subject-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .subject-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .subject-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .btn-small {
+            padding: 8px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-small:hover {
+            background: var(--accent);
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            max-width: 500px;
+            margin: 40px auto;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 134, 232, 0.2);
+            outline: none;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Tutors Section */
+        .tutors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .tutor-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .tutor-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .tutor-img {
+            height: 200px;
+            background: linear-gradient(120deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+        
+        .tutor-info {
+            padding: 20px;
+        }
+        
+        .tutor-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .tutor-subject {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+        
+        .tutor-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        /* Filter Section */
+        .filters {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .filter-title {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-option {
+            padding: 8px 15px;
+            background: #f5f7fb;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-option:hover, .filter-option.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Subject Detail Page */
+        .subject-detail {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+        
+        .subject-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .subject-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-right: 20px;
+        }
+        
+        .chapters {
+            margin-top: 30px;
+        }
+        
+        .chapter {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .chapter-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .chapter-topics {
+            list-style-type: none;
+        }
+        
+        .chapter-topics li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .chapter-topics li:before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Contact Page */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .contact-info {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            border-radius: 20px 20px 0 0;
+            margin-top: 60px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #b0b0b0;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin: 20px 0;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo" onclick="showPage('home')">
+                <i class="fas fa-graduation-cap"></i>
+                <span>TutoCollège</span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Accueil</a></li>
+                    <li><a href="#" class="nav-link" data-page="subjects">Matières</a></li>
+                    <li><a href="#" class="nav-link" data-page="tutors">Tuteurs</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+                <a href="#" class="auth-btn login" onclick="showPage('login')">Connexion</a>
+                <a href="#" class="auth-btn signup" onclick="showPage('signup')">Inscription</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Votre réussite scolaire commence ici</h1>
+                <p>Des tuteurs qualifiés pour accompagner les collégiens dans toutes les matières et assurer leur réussite scolaire</p>
+                <div class="hero-buttons">
+                    <button class="btn" onclick="showPage('tutors')">Voir nos offres</button>
+                    <button class="btn btn-outline" onclick="showPage('signup')">Devenir tuteur</button>
+                </div>
+            </div>
+        </section>
+        
+        <div class="container">
+            <!-- Subjects Section -->
+            <h2 class="section-title">Matières proposées</h2>
+            <div class="subjects-grid">
+                <div class="subject-card" onclick="showPage('maths')">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Mathématiques</h3>
+                    <p>Algèbre, géométrie, trigonométrie et préparation au brevet</p>
+                    <button class="btn-small">Voir les tuteurs</button>
+                </div>
+                
+                <div class="subject-card" onclick="showPage('physics')">
+                    <i class="fas fa-flask"></i>
+                    <h3>Physique-Chimie -Technologie</h3>
+                    <p>Comprendre les phénomènes naturels et les réactions chimiques</p>
+                    <button class="btn-small">Voir les tuteurs</button>
+                </div>
+                
+                <div class="subject-card" onclick="showPage('french')">
+                    <i class="fas fa-language"></i>
+                    <h3>Français</h3>
+                    <p>Grammaire, conjugaison, rédaction et analyse de textes</p>
+                    <button class="btn-small">Voir les tuteurs</button>
+                </div>
+            </div>
+            
+            <!-- How it works -->
+            <div class="subject-detail">
+                <h2 class="section-title">Comment ça marche</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">1</div>
+                        <h3>Inscription gratuite</h3>
+                        <p>Créez votre compte en 2 minutes</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">2</div>
+                        <h3>Choisissez votre tuteur</h3>
+                        <p>Filtrez par matière, disponibilité et avis</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">3</div>
+                        <h3>Planifiez un cours</h3>
+                        <p>Choisissez un créneau qui vous convient</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">4</div>
+                        <h3>Apprenez et progressez</h3>
+                        <p>Suivez des cours en visio avec partage d'écran</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login" class="page">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="form-title">Connexion</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="login-email">Adresse email</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Votre mot de passe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="remember-me" class="form-check-input">
+                            <label for="remember-me" class="form-check-label">Se souvenir de moi</label>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn" style="width: 100%;" onclick="simulateLogin()">Se connecter</button>
+                    
+                    <div class="form-footer">
+                        <p>Pas encore inscrit ? <a href="#" onclick="showPage('signup')">Créer un compte</a></p>
+                        <p><a href="#">Mot de passe oublié ?</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div id="signup" class="page">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="form-title">Inscription</h2>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signup-name">Nom complet</label>
+                        <input type="text" id="signup-name" class="form-control" placeholder="Votre nom et prénom" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-email">Adresse email</label>
+                        <input type="email" id="signup-email" class="form-control" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password">Mot de passe</label>
+                        <input type="password" id="signup-password" class="form-control" placeholder="Créez un mot de passe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirmer le mot de passe</label>
+                        <input type="password" id="signup-confirm" class="form-control" placeholder="Confirmez votre mot de passe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-role">Je suis</label>
+                        <select id="signup-role" class="form-control" required>
+                            <option value="">Sélectionnez un rôle</option>
+                            <option value="student">Élève</option>
+                            <option value="tutor">Tuteur</option>
+                            <option value="parent">Parent</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="terms" class="form-check-input" required>
+                            <label for="terms" class="form-check-label">J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a></label>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn" style="width: 100%;" onclick="simulateSignup()">Créer mon compte</button>
+                    
+                    <div class="form-footer">
+                        <p>Déjà inscrit ? <a href="#" onclick="showPage('login')">Se connecter</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subjects Page -->
+    <div id="subjects" class="page">
+        <div class="container">
+            <h2 class="section-title">Toutes les matières</h2>
+            
+            <div class="filters">
+                <h3 class="filter-title">Filtrer par niveau :</h3>
+                <div class="filter-options">
+                    <div class="filter-option active">Tous</div>
+                    <div  class="filter-option">6ème</div>
+                    <div class="filter-option">5ème</div>
+                    <div class="filter-option">4ème</div>
+                    <div class="filter-option">3ème</div>
+                </div>
+            </div>
+            
+            <div class="subjects-grid">
+                <div class="subject-card" onclick="showPage('maths')">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Mathématiques</h3>
+                    <p>Algèbre, géométrie, trigonométrie et préparation au brevet</p>
+                    <button class="btn-small">Explorer</button>
+                </div>
+                
+                <div class="subject-card" onclick="showPage('french')">
+                    <i class="fas fa-language"></i>
+                    <h3>Français</h3>
+                    <p>Grammaire, conjugaison, rédaction et analyse de textes</p>
+                    <button class="btn-small">Explorer</button>
+                </div>
+                
+                <div class="subject-card" onclick="showPage('physics')">
+                    <i class="fas fa-flask"></i>
+                    <h3>Physique-Chimie-Technologie</h3>
+                    <p>Comprendre les phénomènes naturels et les réactions chimiques</p>
+                    <button class="btn-small">Explorer</button>
+                </div>
+                
+                <div class="subject-card" onclick="showPage('svt')">
+                    <i class="fas fa-microscope"></i>
+                    <h3>SVT</h3>
+                    <p>Biologie, géologie et éducation à la santé et environnement</p>
+                    <button class="btn-small">Explorer</button>
+                </div>
+                
+                <div class="subject-card" onclick="showPage('history')">
+                    <i class="fas fa-monument"></i>
+                    <h3>Histoire-Géographie</h3>
+                    <p>Histoire mondiale, géographie physique et humaine</p>
+                    <button class="btn-small">Explorer</button>
+                </div>
+                
+                <div class="subject-card" onclick="showPage('english')">
+                    <i class="fas fa-globe"></i>
+                    <h3>Anglais</h3>
+                    <p>Grammaire, vocabulaire, compréhension et expression</p>
+                    <button class="btn-small">Explorer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maths Subject Page -->
+    <div id="maths" class="page">
+        <div class="container">
+            <div class="subject-detail">
+                <div class="subject-header">
+                    <div class="subject-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div>
+                        <h1>Mathématiques</h1>
+                        <p>Maîtrisez les concepts mathématiques du collège avec nos tuteurs experts</p>
+                    </div>
+                </div>
+                
+                <p>Les mathématiques sont une matière fondamentale au collège. Notre programme couvre l'ensemble du curriculum de la 6ème à la 3ème, avec une préparation spécifique pour le brevet des collèges.</p>
+                
+                <div class="chapters">
+                    <h2>Programme par niveau</h2>
+                    
+                    <div class="chapter">
+                        <h3 class="chapter-title">6ème</h3>
+                        <ul class="chapter-topics">
+                            <li>Nombres entiers et décimaux</li>
+                            <li>Opérations de base</li>
+                            <li>Géométrie plane</li>
+                            <li>Proportionnalité</li>
+                            <li>Initiation aux fractions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="chapter">
+                        <h3 class="chapter-title">5ème</h3>
+                        <ul class="chapter-topics">
+                            <li>Nombres relatifs</li>
+                            <li>Calcul fractionnaire</li>
+                            <li>Équations du premier degré</li>
+                            <li>Géométrie dans l'espace</li>
+                            <li>Statistiques</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="chapter">
+                        <h3 class="chapter-title">4ème</h3>
+                        <ul class="chapter-topics">
+                            <li>Calcul littéral</li>
+                            <li>Puissances</li>
+                            <li>Théorème de Pythagore</li>
+                            <li>Probabilités</li>
+                            <li>Fonctions linéaires</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="chapter">
+                        <h3 class="chapter-title">3ème</h3>
+                        <ul class="chapter-topics">
+                            <li>Théorème de Thalès</li>
+                            <li>Trigonométrie</li>
+                            <li>Équations et inéquations</li>
+                            <li>Statistiques avancées</li>
+                            <li>Préparation au brevet</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn" style="margin-top: 30px;" onclick="showPage('tutors')">Voir les tuteurs en mathématiques</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutors Page -->
+    <div id="tutors" class="page">
+        <div class="container">
+            <h2 class="section-title">Nos tuteurs</h2>
+            
+            <div class="filters">
+                <h3 class="filter-title">Filtrer par :</h3>
+                <div class="filter-options">
+                    <div class="filter-option active">Tous</div>
+                    <div class="filter-option">Mathématiques</div>
+                    <div class="filter-option">Français</div>
+                    <div class="filter-option">Physique-Chimie-Technologie</div>
+                    <div class="filter-option">SVT</div>
+                    <div class="filter-option">Disponible maintenant</div>
+                </div>
+            </div>
+            
+            <div class="tutors-grid">
+                <div class="tutor-card">
+                    <div class="tutor-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="tutor-info">
+                        <h3>Marie Dupont</h3>
+                        <p class="tutor-subject">Mathématiques</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.5 (42 avis)</span>
+                        </div>
+                        <p class="tutor-description">Prof de mathématiques avec 8 ans d'expérience, spécialisée dans l'aide aux collégiens.</p>
+                        <p><strong>Tarif:</strong> 22€/heure</p>
+                        <button class="btn-small" style="margin-top: 10px;" onclick="showPage('booking')">Réserver un cours</button>
+                    </div>
+                </div>
+                
+                <div class="tutor-card">
+                    <div class="tutor-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="tutor-info">
+                        <h3>Thomas Martin</h3>
+                        <p class="tutor-subject">Physique-Chimie-Technologie</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>5.0 (28 avis)</span>
+                        </div>
+                        <p class="tutor-description">Ingénieur passionné par l'enseignement, j'adore rendre la science accessible à tous.</p>
+                        <p><strong>Tarif:</strong> 25€/heure</p>
+                        <button class="btn-small" style="margin-top: 10px;" onclick="showPage('booking')">Réserver un cours</button>
+                    </div>
+                </div>
+                
+                <div class="tutor-card">
+                    <div class="tutor-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="tutor-info">
+                        <h3>Sophie Leroy</h3>
+                        <p class="tutor-subject">Français</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>4.0 (35 avis)</span>
+                        </div>
+                        <p class="tutor-description">Diplômée en lettres modernes, j'aide les collégiens à maîtriser la langue française.</p>
+                        <p><strong>Tarif:</strong> 20€/heure</p>
+                        <button class="btn-small" style="margin-top: 10px;" onclick="showPage('booking')">Réserver un cours</button>
+                    </div>
+                </div>
+                
+                <div class="tutor-card">
+                    <div class="tutor-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="tutor-info">
+                        <h3>Julien Moreau</h3>
+                        <p class="tutor-subject">SVT</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (50 avis)</span>
+                        </div>
+                        <p class="tutor-description">Docteur en biologie, j'enseigne avec passion les SVT depuis 10 ans.</p>
+                        <p><strong>Tarif:</strong> 24€/heure</p>
+                        <button class="btn-small" style="margin-top: 10px;" onclick="showPage('booking')">Réserver un cours</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <div class="container">
+            <h2 class="section-title">Contactez-nous</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informations de contact</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Adresse</h4>
+                            <p> Kara</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Téléphone</h4>
+                            <p>+228 91 89 14 86</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contact@utocollege.fr</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Horaires</h4>
+                            <p>Lun-Ven: 9h-18h</p>
+                            <p>Sam: 10h-16h</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div>
+                            <h4>Support</h4>
+                            <p>Assistance 7j/7 par email</p>
+                            <p>Réponse sous 24h</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-container">
+                    <h3>Envoyez-nous un message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contact-name">Nom complet</label>
+                            <input type="text" id="contact-name" class="form-control" placeholder="Votre nom" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-email">Adresse email</label>
+                            <input type="email" id="contact-email" class="form-control" placeholder="votre@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-subject">Sujet</label>
+                            <select id="contact-subject" class="form-control" required>
+                                <option value="">Sélectionnez un sujet</option>
+                                <option value="information">Demande d'information</option>
+                                <option value="technical">Problème technique</option>
+                                <option value="billing">Question de facturation</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" class="form-control" rows="5" placeholder="Votre message" required></textarea>
+                        </div>
+                        
+                        <button type="button" class="btn" style="width: 100%;" onclick="simulateContact()">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>TutoCollège</h3>
+                    <p>La plateforme de tutorat n°1 pour les collégiens en France. Nous connectons les élèves avec des tuteurs qualifiés pour assurer leur réussite scolaire.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Matières</h3>
+                    <ul>
+                        <li><a href="#" onclick="showPage('maths')">Mathématiques</a></li>
+                        <li><a href="#" onclick="showPage('french')">Français</a></li>
+                        <li><a href="#" onclick="showPage('physics')">Physique-Chimie-Technologie</a></li>
+                        <li><a href="#" onclick="showPage('svt')">SVT</a></li>
+                        <li><a href="#" onclick="showPage('history')">Histoire-Géographie</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Liens utiles</h3>
+                    <ul>
+                        <li><a href="#">Comment ça marche</a></li>
+                        <li><a href="#">Devenir tuteur</a></li>
+                        <li><a href="#">Tarifs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contactez-nous</h3>
+                    <p><i class="fas fa-envelope"></i> contact@utocollege.fr</p>
+                    <p><i class="fas fa-phone"></i> +228 91891486</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Kara</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 TutoCollège. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Navigation link click event
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage(this.getAttribute('data-page'));
+            });
+        });
+        
+        // Filter option selection
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.filter-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // Simulate login
+        function simulateLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+            
+            alert('Connexion simulée réussie! Bienvenue sur TutoCollège.');
+            // In a real app, you would redirect to the dashboard or home page
+        }
+        
+        // Simulate signup
+        function simulateSignup() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirm = document.getElementById('signup-confirm').value;
+            const role = document.getElementById('signup-role').value;
+            const terms = document.getElementById('terms').checked;
+            
+            if (!name || !email || !password || !confirm || !role) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+            
+            if (password !== confirm) {
+                alert('Les mots de passe ne correspondent pas');
+                return;
+            }
+            
+            if (!terms) {
+                alert('Veuillez accepter les conditions d\'utilisation');
+                return;
+            }
+            
+            alert('Inscription simulée réussie! Bienvenue sur TutoCollège.');
+            // In a real app, you would redirect to the dashboard or home page
+        }
+        
+        // Simulate contact form submission
+        function simulateContact() {
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+            
+            if (!name || !email || !subject || !message) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+            
+            alert('Message envoyé! Nous vous répondrons dans les plus brefs délais.');
+            document.getElementById('contactForm').reset();
+        }
+    </script>
+</body>
+</html>
